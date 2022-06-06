@@ -44,3 +44,22 @@
     font-weight: bold;
     font-size: 140%;
   }
+
+  .btn{
+    background-color: lightgreen;
+    border-radius: 5px;
+    border: none;
+    border-radius: 0;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    padding: 1.8rem 3rem;
+    cursor: pointer;
+    transition: all .2s;  
+  }
+
+
+  .btn:hover{
+    background-color: #40ee40;
+    transform: scale(1.01);
+  }
+  
