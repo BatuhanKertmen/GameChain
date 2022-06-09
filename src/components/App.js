@@ -6,6 +6,7 @@ import vg from '../truffle_abis/VideoGames.json'
 
 import { Route, Routes } from "react-router-dom";
 import Home from '../pages/Home'
+import Account from '../pages/Account'
 export default class App extends Component {
 
     
@@ -26,6 +27,7 @@ export default class App extends Component {
     async loadBlockChainData() {
         const web3 = window.web3;
         const account = await web3.eth.getAccounts()
+        console.log(account)
         this.setState({account:account[0]})
 
         const gtId = await web3.eth.net.getId()
@@ -36,6 +38,7 @@ export default class App extends Component {
             this.setState({gameToken:gameToken})
 
             let gtBalance = await gameToken.methods.balanceOf(this.state.account).call()
+            console.log(gtBalance.toString())
             this.setState({gameTokenBalance: gtBalance.toString() })
         } else {
             window.alert("Error! Token network is down!")
@@ -70,6 +73,7 @@ export default class App extends Component {
         <>
         <Routes>
         <Route path="/" element={<Home account ={this.state.account} />} />
+        <Route path="/1" element={<Account account ={this.state.account} gameTokenBalance={this.state.gameTokenBalance}  />} />
         </Routes>
         </>
     )
