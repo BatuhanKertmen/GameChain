@@ -1466,6 +1466,12 @@
     "version": "0.5.17+commit.d19bba13.Emscripten.clang"
   },
   "networks": {
+    "1337": {
+      "events": {},
+      "links": {},
+      "address": "0x1B736fD4d020aa7305Cf6EBB6CB625aa6a90a427",
+      "transactionHash": "0x2acef847e310b3877b41e0a8538e0b580a32bc8f28ed7356854464d947c47774"
+    },
     "5777": {
       "events": {},
       "links": {},
