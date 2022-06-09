@@ -28,15 +28,24 @@ export default class App extends Component {
         const account = await web3.eth.getAccounts()
         this.setState({account:account[0]})
 
-        const gtId = await web3.eth.net.getId()
-        const gtData = gt.networks[gtId]
-        if(gtData)
+        const Id = await web3.eth.net.getId()
+        const gtData = gt.networks[Id]
+        const vgData = vg.networks[Id]
+        
+        if(gtData && vgData)
         {
             const gameToken =  await new web3.eth.Contract(gt.abi, gtData.address)
             this.setState({gameToken:gameToken})
 
+            const videoGames = await new web3.eth.Contract(vg.abi, vgData.address)
+            this.setState({videoGames:videoGames})
+
             let gtBalance = await gameToken.methods.balanceOf(this.state.account).call()
-            this.setState({gameTokenBalance: gtBalance.toString() })
+            this.setState({gameTokenBalance: gtBalance.toString()})
+
+            let games = await videoGames.methods.getInfo().call()
+            this.setState({games:games})
+
         } else {
             window.alert("Error! Token network is down!")
         }
@@ -68,9 +77,9 @@ export default class App extends Component {
 
     return (
         <>
-        <Routes>
-        <Route path="/" element={<Home account ={this.state.account} />} />
-        </Routes>
+            <Routes>
+                <Route path="/" element={<Home account ={this.state.account} games={this.state.games}/>} />
+            </Routes>
         </>
     )
   }

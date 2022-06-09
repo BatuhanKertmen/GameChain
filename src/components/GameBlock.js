@@ -1,13 +1,12 @@
 import React from 'react'
 
-const GameBlock = ({children, img, desc, title, price}) => {
+const GameBlock = ({children, img, desc, title, price, producer}) => {
     const style_game_container = {
         
         backgroundColor: "#fff",
         borderRadius: "4px",
         height: "20rem",
         overflow: "hidden",
-        cursor: "pointer",
 
         display: "grid",
         gridTemplateColumns: "repeat(6, 1fr)",
@@ -63,7 +62,13 @@ const GameBlock = ({children, img, desc, title, price}) => {
         marginLeft: "auto",
 
         padding: "5px",
-    } 
+    }
+    
+    const style_game_producer = {
+        gridRow: "6 / 7",
+        gridColumn: "3 / -1",
+        marginLeft: "7%"
+    }
 
 
     return (
@@ -72,8 +77,9 @@ const GameBlock = ({children, img, desc, title, price}) => {
                 <img style={style_game_img} src={img} />
             </div>
             <h1 style={style_game_title}>{title}</h1>
+            <p style={style_game_desc} >{desc} <strong style={{color:"darkblue", fontWeight:"600"}}> &nbsp;&nbsp; More...</strong></p>
+            <h3 style={style_game_producer}> {producer} </h3>
             <h3 className='btn' style={style_game_price} >{price}$</h3>
-            <p style={style_game_desc} >{desc} <bold style={{color:"darkblue", fontWeight:"600"}}> &nbsp;&nbsp; More...</bold></p>
         </div>
     )
 }
