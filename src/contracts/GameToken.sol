@@ -1,6 +1,7 @@
 pragma solidity ^0.5.0;
 
 contract GameToken {
+    address public owner;
     uint256 public totalSupply_ = 1000000000000000000 * 1000000;
     string public constant name = "Game Token";
     string public constant symbol = "GT";
@@ -14,8 +15,12 @@ contract GameToken {
 
     constructor() public {
         balances[msg.sender] = totalSupply_;
+        owner = msg.sender;
     }
 
+    function getowner() public view returns(address) {
+        return owner;
+    }
     function totalSupply() public view returns(uint256) {
         return totalSupply_;
     }

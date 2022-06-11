@@ -18,7 +18,7 @@ pragma experimental ABIEncoderV2;
     mapping(address => VideoGame[]) public  VideoGamesOf;
     VideoGame[] public AllVideoGames;
 
-    constructor ()  payable public  {
+    constructor () payable public  {
         owner = msg.sender;
     }
   
