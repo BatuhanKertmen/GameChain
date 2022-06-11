@@ -45,6 +45,9 @@ export default class App extends Component {
             let gtBalance = await gameToken.methods.balanceOf(this.state.account).call()
             this.setState({gameTokenBalance: gtBalance.toString()})
 
+            let gameTokenOwner = await gameToken.methods.getowner().call()
+            this.setState({tokenowner: gameTokenOwner.toString()})
+            
             let games = await videoGames.methods.getInfo().call()
             this.setState({games:games})
 
@@ -53,6 +56,31 @@ export default class App extends Component {
         }
     
     }
+
+
+    buyTokens = (amount) => {
+        //this.state.gameToken.methods.approve(this.state.gameToken.owner)
+        this.setState({loading: true })
+        //console.log(this.state.tokenowner)
+        //console.log(this.state.account)
+        //console.log(this.state.OwnerBalance)
+        //console.log(amount)
+        if(this.state.gameToken.methods.totalSupply_() > amount)
+        {
+           // this.state.gameToken.methods.approve(this.state.account, amount).send({from: this.state.tokenowner}).on('transactionHash', (hash) => {
+                this.state.gameToken.methods.transfer(this.state.account, amount).send({from: this.state.tokenowner}).on('transactionHash', (hash) => {
+                     this.setState({loading:false})
+                }) 
+            //}) 
+        }
+        else
+        {
+            console.log("Please wait, you can not buy token now.")
+            this.setState({loading:false})
+        }
+        }
+       
+
 
     async UNSAFE_componentWillMount()
     {
@@ -68,7 +96,8 @@ export default class App extends Component {
             gameToken: {},
             videoGames:{},
             gameTokenBalance: '0',
-            loading: true
+            loading: true,
+            tokenowner: '1x1'
         }
     }
 
@@ -80,8 +109,8 @@ export default class App extends Component {
     return (
         <>
             <Routes>
-                <Route path="/" element={<Home account ={this.state.account} games={this.state.games}/>} />
-                <Route path="/1" element={<Account account ={this.state.account} gameTokenBalance={this.state.gameTokenBalance}  />} />
+                <Route path="/" element={<Home account ={this.state.account} games={this.state.games}  />} />
+                <Route path="/1" element={<Account account ={this.state.account} gameTokenBalance={this.state.gameTokenBalance}  buyTokens ={this.buyTokens} />} />
             </Routes>
         </>
     )
