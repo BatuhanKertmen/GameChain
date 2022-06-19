@@ -1,4 +1,5 @@
-import React, { Component, useState, useEffect }  from 'react';
+import React, { Component, useState, useEffect }  from 'react'
+import {Link} from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import GameBlock from '../components/GameBlock'
 import BigContainer from '../components/design-components/BigContainer'
@@ -113,7 +114,7 @@ const Home = (props) => {
       </div>
       }
       
-      <Navbar account={props.account} />
+      
       <div className='add_game_btn' style={add_game_btn_style} onClick={() => setAddGmae(!addGame)}>
         <div className='plus_sign_left' />
         <div className='plus_sign_right'/>
@@ -137,10 +138,10 @@ const Home = (props) => {
         
         {props.games && props.games.filter(filterGames).map((elm, idx) => {
           const [address, title, producer, desc, img, price] = elm
-          return <GameBlock img={img} title={title} desc={desc} price={price} producer={producer} key={idx}/>
+          return <Link to={`games/${elm.title.replace(/\s/g, '')}`} ><GameBlock img={img} title={title} desc={desc} price={price} producer={producer} key={idx}/></Link>
         }) }
         
-        <GameBlock img="https://cdn.wallpapersafari.com/73/50/JbtAa5.jpg" title="Grand Theft Auto 5" desc={lorem} price={99.99} producer="Rockstar"/>
+        <Link to={`games/${props.dummy[0].title.replace(/\s/g, '')}`} ><GameBlock img="https://cdn.wallpapersafari.com/73/50/JbtAa5.jpg" title="Grand Theft Auto 5" desc={lorem} price={99.99} producer="Rockstar"/></Link>
       </BigContainer>
     </>
   )

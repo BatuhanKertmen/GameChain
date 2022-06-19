@@ -3,10 +3,13 @@ import Web3 from 'web3'
 import "../Style/Navbar.css"
 import gt from '../truffle_abis/GameToken.json'
 import vg from '../truffle_abis/VideoGames.json'
+import Navbar from './Navbar'
 
 import { Route, Routes } from "react-router-dom";
 import Home from '../pages/Home'
 import Account from '../pages/Account'
+import Game from '../pages/Game'
+
 export default class App extends Component {
 
     
@@ -61,11 +64,9 @@ export default class App extends Component {
         this.setState({loading: true })
         if(this.state.gameToken.methods.totalSupply_() > amount)
         {
-           // this.state.gameToken.methods.approve(this.state.account, amount).send({from: this.state.tokenowner}).on('transactionHash', (hash) => {
-                this.state.gameToken.methods.transfer(this.state.account, amount).send({from: this.state.tokenowner}).on('transactionHash', (hash) => {
-                     this.setState({loading:false})
-                }) 
-            //}) 
+            this.state.gameToken.methods.transfer(this.state.account, amount).send({from: this.state.tokenowner}).on('transactionHash', (hash) => {
+                this.setState({loading:false})
+            }) 
         }
         else
         {
@@ -85,24 +86,58 @@ export default class App extends Component {
     constructor(props)
     {
         super(props)
+        this.setFilter = this.setFilter.bind(this);
+
         this.state = {
             account:  '0x0',
             gameToken: {},
             videoGames:{},
             gameTokenBalance: '0',
             loading: true,
-            tokenowner: '1x1'
+            tokenowner: '1x1',
+            filter: ""
         }
+    }
+
+    setFilter(word){
+        const filt = word ? "" : word
+        this.setState(
+            {filter: filt}
+        )
     }
 
   render() {
 
+    const lorem = "Dolore aliqua dolore cillum anim enim excepteur minim eiusmod eiusmod tempor aliquip. Incididunt non Lorem sunt ea ad fugiat quis in id. Deserunt ipsum nulla consequat nulla laboris. Veniam do in enim quis eiusmod nisi esse ex est eiusmod qui. Fugiat exercitation duis incididunt incididunt adipisicing sit quis dolore exercitation officia nostrud Lorem. Lorem labore anim elit est qui Lorem laboris duis id nulla veniam quis culpa consequat"
+    
+    const dummy = [] 
+    dummy.push({
+        img:"https://cdn.wallpapersafari.com/73/50/JbtAa5.jpg",
+        title:"Grand Theft Auto 5",
+        desc:lorem,
+        price:99.99,
+        producer:"Rockstar"
+    })
 
     return (
         <>
+            <Navbar account={this.state.account} />
             <Routes>
-                <Route path="/" element={<Home account ={this.state.account} games={this.state.games}  />} />
-                <Route path="/1" element={<Account account ={this.state.account} gameTokenBalance={this.state.gameTokenBalance}  buyTokens ={this.buyTokens} />} />
+                <Route exact path="/" element={<Home games={this.state.games} dummy={dummy}/>} />
+                {dummy && dummy.map((elm, idx) => {
+                    return <Route key={idx} exact path={`games/${elm.title.replace(/\s/g, '')}`} 
+                    element={
+                    <Game 
+                        title={elm.title}
+                        company={elm.producer}
+                        img={elm.img}
+                        price={elm.price}
+                        desc={elm.desc}
+                    />
+                } />
+                })}
+                    
+                
             </Routes>
         </>
     )
