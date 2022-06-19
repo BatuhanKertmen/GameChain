@@ -27,7 +27,6 @@ export default class App extends Component {
     async loadBlockChainData() {
         const web3 = window.web3;
         const account = await web3.eth.getAccounts()
-        console.log(account)
         this.setState({account:account[0]})
 
         const Id = await web3.eth.net.getId()
@@ -59,12 +58,7 @@ export default class App extends Component {
 
 
     buyTokens = (amount) => {
-        //this.state.gameToken.methods.approve(this.state.gameToken.owner)
         this.setState({loading: true })
-        //console.log(this.state.tokenowner)
-        //console.log(this.state.account)
-        //console.log(this.state.OwnerBalance)
-        //console.log(amount)
         if(this.state.gameToken.methods.totalSupply_() > amount)
         {
            // this.state.gameToken.methods.approve(this.state.account, amount).send({from: this.state.tokenowner}).on('transactionHash', (hash) => {
@@ -102,8 +96,6 @@ export default class App extends Component {
     }
 
   render() {
-
-    
 
 
     return (
