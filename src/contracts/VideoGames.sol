@@ -27,7 +27,7 @@ pragma experimental ABIEncoderV2;
         _; 
     }
 
-    modifier OwnerProducer(VideoGame[] memory AllVideoGames, string memory _name) {
+    modifier GameExist(VideoGame[] memory AllVideoGames, string memory _name) {
         bool value = true;
 
         VideoGame memory videoGame;
@@ -51,7 +51,7 @@ pragma experimental ABIEncoderV2;
     return keccak256(abi.encodePacked(s1)) == keccak256(abi.encodePacked(s2));
         }
 
-    function addGames(address _producerAddress, string memory _name, string memory _producer, string memory _description, string memory _imageLink, uint _price) OwnerProducer(AllVideoGames,_name) public returns (bool success) {
+    function addGames(address _producerAddress, string memory _name, string memory _producer, string memory _description, string memory _imageLink, uint _price) GameExist(AllVideoGames,_name) public returns (bool success) {
        VideoGame memory videoGame;
        //uint length = VideoGamesOf[_producerAddress].length;
 

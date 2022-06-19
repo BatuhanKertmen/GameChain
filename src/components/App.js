@@ -73,9 +73,15 @@ export default class App extends Component {
             console.log("Please wait, you can not buy token now.")
             this.setState({loading:false})
         }
-        }
+    }
        
-
+    AddGame = (_name,_producer,_description,_imageLink,_price) => {
+        this.setState({loading: true })
+        this.state.videoGames.methods.addGames(this.state.account,_name,_producer,_description,_imageLink,_price).send({from: this.state.tokenowner}).on('transactionHash', (hash) => {
+            this.setState({loading:false})
+        })            
+    }
+       
 
     async UNSAFE_componentWillMount()
     {
@@ -86,7 +92,7 @@ export default class App extends Component {
     constructor(props)
     {
         super(props)
-        this.setFilter = this.setFilter.bind(this);
+        this.AddGame = this.AddGame.bind(this);
 
         this.state = {
             account:  '0x0',
@@ -95,25 +101,17 @@ export default class App extends Component {
             gameTokenBalance: '0',
             loading: true,
             tokenowner: '1x1',
-            filter: ""
         }
-    }
-
-    setFilter(word){
-        const filt = word ? "" : word
-        this.setState(
-            {filter: filt}
-        )
     }
 
   render() {
 
     const lorem = "Dolore aliqua dolore cillum anim enim excepteur minim eiusmod eiusmod tempor aliquip. Incididunt non Lorem sunt ea ad fugiat quis in id. Deserunt ipsum nulla consequat nulla laboris. Veniam do in enim quis eiusmod nisi esse ex est eiusmod qui. Fugiat exercitation duis incididunt incididunt adipisicing sit quis dolore exercitation officia nostrud Lorem. Lorem labore anim elit est qui Lorem laboris duis id nulla veniam quis culpa consequat"
-    
+    console.log(this.state.account, "acc");
     const dummy = [] 
     dummy.push({
         img:"https://cdn.wallpapersafari.com/73/50/JbtAa5.jpg",
-        title:"Grand Theft Auto 5",
+        name:"Grand Theft Auto 5",
         desc:lorem,
         price:99.99,
         producer:"Rockstar"
@@ -123,21 +121,20 @@ export default class App extends Component {
         <>
             <Navbar account={this.state.account} />
             <Routes>
-                <Route exact path="/" element={<Home games={this.state.games} dummy={dummy}/>} />
-                {dummy && dummy.map((elm, idx) => {
-                    return <Route key={idx} exact path={`games/${elm.title.replace(/\s/g, '')}`} 
+                <Route exact path="/" element={<Home games={this.state.games} dummy={dummy} AddGame={this.AddGame} />} />
+                {this.state.games && this.state.games.map((elm, idx) => {
+                    console.log(elm, "anan");
+                    return <Route key={idx} exact path={`games/${elm.name.replace(/\s/g, '')}`} 
                     element={
                     <Game 
-                        title={elm.title}
+                        title={elm.name}
                         company={elm.producer}
-                        img={elm.img}
+                        img={elm.imageLink}
                         price={elm.price}
-                        desc={elm.desc}
+                        desc={elm.description}
                     />
-                } />
+                    }/>
                 })}
-                    
-                
             </Routes>
         </>
     )
