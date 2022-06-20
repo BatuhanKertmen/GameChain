@@ -21,25 +21,7 @@ const Home = (props) => {
     const [error, setError] = useState(false)
     const [succes, setSucces] = useState(false)
   
-    /*
-    <form 
-        onSubmit={(event) => {
-        event.preventDefault()
-        let _producerAddress = '0x54f8B3461c2D599f141bF9980f659b6d04f459d6'
-        let _name = "Age of Empires IV "
-        let _producer = "Xbox Game Studios"
-        let _description = "Mükemmel bir strateji oyunu"
-        let _imageLink = "https://cdn.akamai.steamstatic.com/steam/apps/1466860/header.jpg?t=1649360851"
-        let _price = 300
-        props.AddGame(_name,_producer,_description,_imageLink,_price)
-        }}
-        className='mb-3'>
-        <div style={{borderSpacing:'0 1em'}}>
-          <label className='float-left' style={{marginLeft:'15px'}}><b>Stake Tokens</b></label>
-          <button type='submit' className='btn btn-primary btn-lg btn-block'>buyGames</button>
-        </div>
-        </form>
-    */
+    
 
 
     const add_game_btn_style = {
@@ -130,7 +112,23 @@ const Home = (props) => {
         </div>
       </div>
       }
-      
+     
+    <form 
+        onSubmit={(event) => {
+        event.preventDefault()
+        let _producerAddress = props.tokenowner
+        let _price = 300
+        let _name = "GTA5"
+        props.BuyGame(_name,_producerAddress,_price)
+        }}
+        className='mb-3'>
+        <div style={{borderSpacing:'0 1em'}}>
+          <label className='float-left' style={{marginLeft:'15px'}}><b>Stake Tokens</b></label>
+          <button type='submit' className='btn btn-primary btn-lg btn-block'>buyGames</button>
+        </div>
+        </form>
+   
+
       <div className='add_game_btn' style={add_game_btn_style} onClick={() => setAddGmae(!addGame)}>
         <div className='plus_sign_left' />
         <div className='plus_sign_right'/>

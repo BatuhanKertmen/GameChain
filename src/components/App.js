@@ -81,6 +81,26 @@ export default class App extends Component {
             this.setState({loading:false})
         })            
     }
+
+    BuyGame = (_name,_producerAddress, _price) => {
+        this.setState({loading: true })
+        _price = window.web3.utils.toWei(_price.toString(), 'Ether')
+        console.log(this.state.gameTokenBalance)
+        console.log(this.state.account)
+        console.log(this.state.tokenowner)
+        if(_price < this.state.gameTokenBalance)
+        {
+            this.state.gameToken.methods.transfer(_producerAddress,_price).send({from: this.state.account}).on('transactionHash', (hash) => {
+                this.setState({loading:false}) 
+            }) 
+        }
+        else
+        {
+            console.log("You dont have enough token.")
+            this.setState({loading:false})
+        } 
+        console.log(this.state.gameTokenBalance)       
+    }
        
 
     async UNSAFE_componentWillMount()
@@ -121,7 +141,7 @@ export default class App extends Component {
         <>
             <Navbar account={this.state.account} />
             <Routes>
-                <Route exact path="/" element={<Home games={this.state.games} dummy={dummy} AddGame={this.AddGame} />} />
+                <Route exact path="/" element={<Home games={this.state.games} dummy={dummy} AddGame={this.AddGame} BuyGame = {this.BuyGame} tokenowner={this.state.tokenowner} />} />
                 {this.state.games && this.state.games.map((elm, idx) => {
                     console.log(elm, "anan");
                     return <Route key={idx} exact path={`games/${elm.name.replace(/\s/g, '')}`} 
