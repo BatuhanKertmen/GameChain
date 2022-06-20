@@ -10,6 +10,11 @@ export default class Navbar extends Component {
                 <img src={bank} width="50" height="30" className="d-inline-block align-top" alt="logo" />
                 &nbsp;&nbsp; DAPP Game-chain (Decentralized Video Game Shopping) 
             </Link>
+
+            <Link to="/token" className='navbar-brand col-sm-3 col-lg-2 mr-0' style={{color:"white", marginLeft:"10%"}} >
+                &nbsp;&nbsp;&nbsp; TOKENS
+            </Link>
+
             <ul className='navbar-nav px-3'>
                 <li className='text-nowrap d-none nav-item d-sm-none d-sm-block'>
                     <small style={{color:"white"}}> BALANCE: {this.props.balance} GT </small>

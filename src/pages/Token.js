@@ -6,7 +6,9 @@ import Popup from '../components/Popup'
 
 const Token = (props) => {
     const [buyAmount, setBuyAmount] = useState(0)
+    const [sellAmount, setSellAmount] = useState(0)
     const [buyPopup, setBuyPopup] = useState(false)
+    const [sellPopup, setSellPopup] = useState(false)
 
     const buy = <div className='buy_svg'>
             <Coin style={{height:"100px", width:"auto"}} />
@@ -22,7 +24,13 @@ const Token = (props) => {
 
     const buy_popup_style = {
         title: "Success!",
-        text: `You successfully bought. ${buyAmount} of Tokens.`,
+        text: `You successfully bought ${buyAmount} amount of Tokens.`,
+        class: "popup-succes"
+    }
+
+    const sell_popup_style = {
+        title: "Success!",
+        text: `You successfully sold ${sellAmount} amount of Tokens.`,
         class: "popup-succes"
     }
 
@@ -33,13 +41,24 @@ const Token = (props) => {
         {
             setBuyPopup(true)
             props.buyToken(buyAmount)
-        } 
-    } 
+        }
+    }
+
+    const handleSell = (e) => {
+        e.preventDefault()
+        const amt = e.target.amount.value;
+        if(amt && amt > 0)
+        {
+            setSellPopup(true)
+            props.sellToken(buyAmount)
+        }
+    }
 
 
   return (
     <>
         {buyPopup && <Popup isOpen={setBuyPopup} styles={buy_popup_style} />}
+        {sellPopup && <Popup isOpen={setSellPopup} styles={sell_popup_style} />}
         <br/>
         <br/>
         <br/>
@@ -70,7 +89,7 @@ const Token = (props) => {
                         <input name="country" style={{gridRow:"2 / 3", gridColumn:"1 / 2"}} value="Definetly valid info"  readOnly className='input' />
                         
                         <label style={{gridRow:"1 / 2", gridColumn:"2 / 3", alignSelf:"end"}}>Amount:</label>
-                         <input name="amount" style={{gridRow:"2 / 3", gridColumn:"2 / 3"}} type="number" className='input' 
+                         <input name="amount" style={{gridRow:"2 / 3", gridColumn:"2 / 3", color:"black"}} type="number" className='input' 
                             onChange={(e) => setBuyAmount(e.target.value)}
                         />
                     </div>
@@ -79,10 +98,38 @@ const Token = (props) => {
             </div>
             <div className='sell_token med_container'>
                 {sell}
+                <h2 className='token_header'> Buy Tokens</h2>
+               <form onSubmit={handleSell}>
+                <br/>
+                    <div className='add_game_row'>
+                        <label style={{gridRow:"1 / 2", gridColumn:"1 / 2", alignSelf:"end"}}>Card No:</label>
+                        <input name="card" style={{gridRow:"2 / 3", gridColumn:"1 / 2"}} value="Definetly valid info"  readOnly className='input' />
+
+                        <label style={{gridRow:"1 / 2", gridColumn:"2 / 3", alignSelf:"end"}}>Billing Address:</label>
+                        <input name="addr" style={{gridRow:"2 / 3", gridColumn:"2 / 3"}} value="Definetly valid info"  readOnly className='input' />
+                    </div>
+
+                    <div className='add_game_row'>
+                        <label style={{gridRow:"1 / 2", gridColumn:"1 / 2", alignSelf:"end"}}>Name:</label>
+                        <input name="name" style={{gridRow:"2 / 3", gridColumn:"1 / 2"}} value="Definetly valid info"  readOnly className='input' />
+
+                        <label style={{gridRow:"1 / 2", gridColumn:"2 / 3", alignSelf:"end"}}>Surname:</label>
+                        <input name="surname" style={{gridRow:"2 / 3", gridColumn:"2 / 3"}} value="Definetly valid info"  readOnly className='input' />
+                    </div>
+
+                    <div className='add_game_row'>
+                        <label style={{gridRow:"1 / 2", gridColumn:"1 / 2", alignSelf:"end"}}>Country:</label>
+                        <input name="country" style={{gridRow:"2 / 3", gridColumn:"1 / 2"}} value="Definetly valid info"  readOnly className='input' />
+                        
+                        <label style={{gridRow:"1 / 2", gridColumn:"2 / 3", alignSelf:"end"}}>Amount:</label>
+                         <input name="amount" style={{gridRow:"2 / 3", gridColumn:"2 / 3", color:"black"}} type="number" className='input' 
+                            onChange={(e) => setSellAmount(e.target.value)}
+                        />
+                    </div>
+                    <input type="submit" value={`SELL TOKEN 🟡`} className='game_detailed_btn' style={{marginLeft:"auto", display:"table", marginRight:"45px", backgroundColor:"red"}} />
+               </form>
             </div>
         </main>
-        Token
-        
     </>
   )
 }

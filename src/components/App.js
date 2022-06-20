@@ -75,6 +75,21 @@ export default class App extends Component {
             this.setState({loading:false})
         }
     }
+
+    sellTokens = (amount) => {
+        this.setState({loading: true })
+        if(this.state.gameTokenBalance >= amount)
+        {
+            this.state.gameToken.methods.transfer(this.state.tokenowner, amount).send({from: this.state.account}).on('transactionHash', (hash) => {
+                this.setState({loading:false})
+            }) 
+        }
+        else
+        {
+            this.setState({loading:false})
+        }
+    }
+
        
     AddGame = (_name,_producer,_description,_imageLink,_price) => {
         this.setState({loading: true })
@@ -148,6 +163,7 @@ export default class App extends Component {
         this.AddGame = this.AddGame.bind(this);
         this.BuyGame = this.BuyGame.bind(this);
         this.buyTokens = this.buyTokens.bind(this);
+        this.sellTokens = this.sellTokens.bind(this);
 
         this.state = {
             account:  '0x0',
@@ -191,7 +207,7 @@ export default class App extends Component {
                     />
                     }/>
                 })}
-                <Route exact path="/token" element={<Token buyToken={this.buyTokens} />}/>
+                <Route exact path="/token" element={<Token buyToken={this.buyTokens} sellToken={this.sellTokens} />}/>
             </Routes> 
         </>
     )

@@ -313,11 +313,8 @@ a:hover {
 .token_page{
   width: 100%;
   display: flex;
-  padding: 4rem;
+  padding: 4rem 4rem 0 4rem;
   gap: calc(10% - 8rem);
-  
-  
-  height: 100rem;
 }
 
 .buy_token{
