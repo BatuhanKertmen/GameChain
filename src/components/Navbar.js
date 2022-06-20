@@ -12,6 +12,10 @@ export default class Navbar extends Component {
             </Link>
             <ul className='navbar-nav px-3'>
                 <li className='text-nowrap d-none nav-item d-sm-none d-sm-block'>
+                    <small style={{color:"white"}}> BALANCE: {this.props.balance} GT </small>
+                </li>
+
+                <li className='text-nowrap d-none nav-item d-sm-none d-sm-block'>
                     <small style={{color:"white"}}>ACCOUNT NUNMBER: {this.props.account}</small>
                 </li>
             </ul>

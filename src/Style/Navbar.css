@@ -309,3 +309,52 @@ a:hover {
    color: black;
    text-decoration: none;
 }
+
+.token_page{
+  width: 100%;
+  display: flex;
+  padding: 4rem;
+  gap: calc(10% - 8rem);
+  
+  
+  height: 100rem;
+}
+
+.buy_token{
+  margin-right: auto;
+  flex: 0 0 45%;
+}
+
+.sell_token{
+  margin-left: auto;
+  flex: 0 0 45%;
+}
+
+.med_container{
+  background-color: #eee;
+  width: 90%;
+  padding: 1rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius:5px;
+}
+
+.buy_svg{
+  position: absolute;
+  top: 20%;
+  left: 5%;
+}
+
+.sell_svg{
+  position: absolute;
+  top: 20%;
+  left: 56%;
+}
+
+.token_header{
+  text-align: center;
+  padding: 10px;
+}
+
+.input{
+  color: gray;
+}

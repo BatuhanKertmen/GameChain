@@ -10,6 +10,7 @@ import Home from '../pages/Home'
 import Account from '../pages/Account'
 import Game from '../pages/Game'
 import { isVariableDeclarationList } from 'typescript'
+import Token from '../pages/Token'
 
 export default class App extends Component {
 
@@ -146,6 +147,7 @@ export default class App extends Component {
         super(props)
         this.AddGame = this.AddGame.bind(this);
         this.BuyGame = this.BuyGame.bind(this);
+        this.buyTokens = this.buyTokens.bind(this);
 
         this.state = {
             account:  '0x0',
@@ -172,7 +174,7 @@ export default class App extends Component {
 
     return (
         <>
-            <Navbar account={this.state.account} />
+            <Navbar account={this.state.account} balance={this.state.gameTokenBalance}/>
             <Routes>
                 <Route exact path="/" element={<Home games={this.state.games} dummy={dummy} AddGame={this.AddGame} BuyGame = {this.BuyGame} DeleteGame = {this.DeleteGame} tokenowner={this.state.tokenowner} />} />
                 {this.state.games && this.state.games.map((elm, idx) => {
@@ -189,7 +191,8 @@ export default class App extends Component {
                     />
                     }/>
                 })}
-            </Routes>
+                <Route exact path="/token" element={<Token buyToken={this.buyTokens} />}/>
+            </Routes> 
         </>
     )
   }
