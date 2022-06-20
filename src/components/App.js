@@ -134,7 +134,8 @@ export default class App extends Component {
             {
                 this.state.videoGames.methods.deleteGame(result[0],_name).send({from: this.state.account}).on('transactionHash', (hash) => {
                     this.setState({loading:false})
-                })  
+                })
+                return true
             }
             else
             {
@@ -147,6 +148,7 @@ export default class App extends Component {
        
        
         this.setState({loading: false })
+        return false
     }
 
     
@@ -161,6 +163,7 @@ export default class App extends Component {
     {
         super(props)
         this.AddGame = this.AddGame.bind(this);
+        this.DeleteGame = this.DeleteGame.bind(this);
         this.BuyGame = this.BuyGame.bind(this);
         this.buyTokens = this.buyTokens.bind(this);
         this.sellTokens = this.sellTokens.bind(this);
@@ -204,6 +207,8 @@ export default class App extends Component {
                         desc={elm.description}
                         companyAddress={elm.producerAddress}
                         buy={this.BuyGame}
+                        delete={this.DeleteGame}
+                        account={this.state.account}
                     />
                     }/>
                 })}

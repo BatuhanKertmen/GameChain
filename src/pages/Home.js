@@ -136,8 +136,11 @@ const Home = (props) => {
         
         {props.games && props.games.filter(filterGames).map((elm, idx) => {
           const [address, name, producer, description, img, price] = elm
-          return <Link key={idx} to={`games/${name.replace(/\s/g, '')}`} ><GameBlock img={img} title={name} desc={description} price={price} producer={producer} /></Link>
-        }) }
+          if(name)
+          {
+            return <Link key={idx} to={`games/${name.replace(/\s/g, '')}`} ><GameBlock img={img} title={name} desc={description} price={price} producer={producer} /></Link>
+          }
+          }) }
         
       </BigContainer>
     </>
