@@ -78,7 +78,7 @@ const Game = (props) => {
                     <div className='game_detailed_desc'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{props.desc} </div>
                     <div style={{display:"flex"}}>
                         <input type='submit' className='game_detailed_btn' value={`DELETE`} style={{backgroundColor:"red", marginRight:"auto"}} onClick={deleteGame} />
-                        <input type='submit' className='game_detailed_btn' value={`BUY ${props.price}₺` } onClick={buyGame}/>
+                        <input type='submit' className='game_detailed_btn' value={`BUY ${props.price}🟡` } onClick={buyGame}/>
                     </div>
                 </div>
             </main>
