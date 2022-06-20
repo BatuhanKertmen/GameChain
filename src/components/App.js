@@ -71,7 +71,6 @@ export default class App extends Component {
         }
         else
         {
-            console.log("Please wait, you can not buy token now.")
             this.setState({loading:false})
         }
     }
@@ -86,26 +85,21 @@ export default class App extends Component {
     BuyGame = (_name,_producerAddress, _price) => {
         this.setState({loading: true })
         _price = window.web3.utils.toWei(_price.toString(), 'Ether')
-        console.log(this.state.gameTokenBalance)
-        console.log(this.state.account)
-        console.log(this.state.tokenowner)
         if(_price < this.state.gameTokenBalance)
         {
             this.state.gameToken.methods.transfer(_producerAddress,_price).send({from: this.state.account}).on('transactionHash', (hash) => {
-                this.setState({loading:false}) 
-            }) 
+            })
+            return true;
         }
         else
         {
-            console.log("You dont have enough token.")
             this.setState({loading:false})
-        } 
-        console.log(this.state.gameTokenBalance)       
+            return false;
+        }      
     }
 
     DeleteGame = (_name) => {
         this.setState({loading: true })
-        console.log(10)
         
         var promise = new Promise( (resolve, reject) => {
 
@@ -117,13 +111,9 @@ export default class App extends Component {
             else {
                 console.log(reject)
             }
-            console.log(value)
            });
            promise.then( result => {
             
-            console.log("GAME DELETION")
-            console.log(result[0])
-            console.log(_name)
             if(result[0] == this.state.account)
             {
                 this.state.videoGames.methods.deleteGame(result[0],_name).send({from: this.state.account}).on('transactionHash', (hash) => {
@@ -155,6 +145,7 @@ export default class App extends Component {
     {
         super(props)
         this.AddGame = this.AddGame.bind(this);
+        this.BuyGame = this.BuyGame.bind(this);
 
         this.state = {
             account:  '0x0',
@@ -170,7 +161,6 @@ export default class App extends Component {
   render() {
 
     const lorem = "Dolore aliqua dolore cillum anim enim excepteur minim eiusmod eiusmod tempor aliquip. Incididunt non Lorem sunt ea ad fugiat quis in id. Deserunt ipsum nulla consequat nulla laboris. Veniam do in enim quis eiusmod nisi esse ex est eiusmod qui. Fugiat exercitation duis incididunt incididunt adipisicing sit quis dolore exercitation officia nostrud Lorem. Lorem labore anim elit est qui Lorem laboris duis id nulla veniam quis culpa consequat"
-    console.log(this.state.account, "acc");
     const dummy = [] 
     dummy.push({
         img:"https://cdn.wallpapersafari.com/73/50/JbtAa5.jpg",
@@ -186,7 +176,6 @@ export default class App extends Component {
             <Routes>
                 <Route exact path="/" element={<Home games={this.state.games} dummy={dummy} AddGame={this.AddGame} BuyGame = {this.BuyGame} DeleteGame = {this.DeleteGame} tokenowner={this.state.tokenowner} />} />
                 {this.state.games && this.state.games.map((elm, idx) => {
-                    console.log(elm, "anan");
                     return <Route key={idx} exact path={`games/${elm.name.replace(/\s/g, '')}`} 
                     element={
                     <Game 
@@ -195,6 +184,8 @@ export default class App extends Component {
                         img={elm.imageLink}
                         price={elm.price}
                         desc={elm.description}
+                        companyAddress={elm.producerAddress}
+                        buy={this.BuyGame}
                     />
                     }/>
                 })}

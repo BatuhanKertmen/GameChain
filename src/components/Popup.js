@@ -2,7 +2,7 @@ import React from 'react'
 
 const Popup = (props) => {
 
-    const styles = props.fail ? 
+    let styles = props.fail ? 
     {
         title: "Failed",
         text: "Unable to add the game. One or more of the fields left empty.",
@@ -13,6 +13,8 @@ const Popup = (props) => {
         text: "Succesfully added your game to the blockchain. It is ready for the market.",
         class: "popup-succes"
     }
+
+    styles = props.styles ? props.styles : styles
 
   return (
     <>

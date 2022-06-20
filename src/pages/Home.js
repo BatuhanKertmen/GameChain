@@ -20,16 +20,14 @@ const Home = (props) => {
     const [description, setDescription] = useState("")
     const [error, setError] = useState(false)
     const [succes, setSucces] = useState(false)
+
   
     
-
-
     const add_game_btn_style = {
       transform: addGame ? "rotate(45deg)" : "rotate(0deg)"
     }
 
-    const filterGames = (elm) => {   
-      console.log("burada", filter == "");     
+    const filterGames = (elm) => {     
       if(elm.name && elm.name.includes(filter) )
        {
         return true
@@ -71,6 +69,8 @@ const Home = (props) => {
         setSucces(true)
       }
     }
+
+    
 
     return (
     <>
