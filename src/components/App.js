@@ -66,20 +66,16 @@ export default class App extends Component {
 
     buyTokens = (amount) => {
         this.setState({loading: true })
-        if(this.state.gameToken.methods.totalSupply_() > amount)
-        {
+        console.log(this.state.account)
+        amount = window.web3.utils.toWei(amount.toString(), 'Ether')
             this.state.gameToken.methods.transfer(this.state.account, amount).send({from: this.state.tokenowner}).on('transactionHash', (hash) => {
                 this.setState({loading:false})
             }) 
-        }
-        else
-        {
-            this.setState({loading:false})
-        }
     }
 
     sellTokens = (amount) => {
         this.setState({loading: true })
+        amount = window.web3.utils.toWei(amount.toString(), 'Ether')
         if(this.state.gameTokenBalance >= amount)
         {
             this.state.gameToken.methods.transfer(this.state.tokenowner, amount).send({from: this.state.account}).on('transactionHash', (hash) => {
@@ -95,7 +91,7 @@ export default class App extends Component {
        
     AddGame = (_name,_producer,_description,_imageLink,_price) => {
         this.setState({loading: true })
-        this.state.videoGames.methods.addGames(this.state.account,_name,_producer,_description,_imageLink,_price).send({from: this.state.tokenowner}).on('transactionHash', (hash) => {
+        this.state.videoGames.methods.addGames(this.state.account,_name,_producer,_description,_imageLink,_price).send({from: this.state.account}).on('transactionHash', (hash) => {
             this.setState({loading:false})
         })            
     }

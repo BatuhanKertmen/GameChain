@@ -50,7 +50,7 @@ const Token = (props) => {
         if(amt && amt > 0)
         {
             setSellPopup(true)
-            props.sellToken(buyAmount)
+            props.sellToken(sellAmount)
         }
     }
 
@@ -126,7 +126,7 @@ const Token = (props) => {
                             onChange={(e) => setSellAmount(e.target.value)}
                         />
                     </div>
-                    <input type="submit" value={`SELL TOKEN 🟡`} className='game_detailed_btn' style={{marginLeft:"auto", display:"table", marginRight:"45px", backgroundColor:"red"}} />
+                    <input type="submit" value={`SELL TOKEN 🟡`} onChange={handleSell}className='game_detailed_btn' style={{marginLeft:"auto", display:"table", marginRight:"45px", backgroundColor:"red"}} />
                </form>
             </div>
         </main>
