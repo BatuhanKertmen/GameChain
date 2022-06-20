@@ -127,6 +127,20 @@ const Home = (props) => {
           <button type='submit' className='btn btn-primary btn-lg btn-block'>buyGames</button>
         </div>
         </form>
+
+        <form 
+        onSubmit={(event) => {
+        event.preventDefault()
+        //let _producerAddress = props.tokenowner
+        let _name = "GTA6"
+        props.DeleteGame(_name)
+        }}
+        className='mb-3'>
+        <div style={{borderSpacing:'0 1em'}}>
+          <label className='float-left' style={{marginLeft:'15px'}}><b>Stake Tokens</b></label>
+          <button type='submit' className='btn btn-primary btn-lg btn-block'>DeleteGame</button>
+        </div>
+        </form>
    
 
       <div className='add_game_btn' style={add_game_btn_style} onClick={() => setAddGmae(!addGame)}>

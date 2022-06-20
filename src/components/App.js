@@ -9,6 +9,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from '../pages/Home'
 import Account from '../pages/Account'
 import Game from '../pages/Game'
+import { isVariableDeclarationList } from 'typescript'
 
 export default class App extends Component {
 
@@ -101,7 +102,48 @@ export default class App extends Component {
         } 
         console.log(this.state.gameTokenBalance)       
     }
+
+    DeleteGame = (_name) => {
+        this.setState({loading: true })
+        console.log(10)
+        
+        var promise = new Promise( (resolve, reject) => {
+
+            let value = this.state.videoGames.methods.getGamesInfoBasedProducer(_name).call()
+          
+            if (value !== 'undefined') {
+             resolve(value);
+            }
+            else {
+                console.log(reject)
+            }
+            console.log(value)
+           });
+           promise.then( result => {
+            
+            console.log("GAME DELETION")
+            console.log(result[0])
+            console.log(_name)
+            if(result[0] == this.state.account)
+            {
+                this.state.videoGames.methods.deleteGame(result[0],_name).send({from: this.state.account}).on('transactionHash', (hash) => {
+                    this.setState({loading:false})
+                })  
+            }
+            else
+            {
+                console.log("This is not your game!")
+            }
+                      
+           }, function(error) {
+            console.log("Error Promise")
+           });
        
+       
+        this.setState({loading: false })
+    }
+
+    
 
     async UNSAFE_componentWillMount()
     {
@@ -123,6 +165,7 @@ export default class App extends Component {
             tokenowner: '1x1',
         }
     }
+    
 
   render() {
 
@@ -141,7 +184,7 @@ export default class App extends Component {
         <>
             <Navbar account={this.state.account} />
             <Routes>
-                <Route exact path="/" element={<Home games={this.state.games} dummy={dummy} AddGame={this.AddGame} BuyGame = {this.BuyGame} tokenowner={this.state.tokenowner} />} />
+                <Route exact path="/" element={<Home games={this.state.games} dummy={dummy} AddGame={this.AddGame} BuyGame = {this.BuyGame} DeleteGame = {this.DeleteGame} tokenowner={this.state.tokenowner} />} />
                 {this.state.games && this.state.games.map((elm, idx) => {
                     console.log(elm, "anan");
                     return <Route key={idx} exact path={`games/${elm.name.replace(/\s/g, '')}`} 
