@@ -98,13 +98,19 @@ export default class App extends Component {
 
     BuyGame = async (_name,_producerAddress, _price) => {
         this.setState({loading: true })
+
+        
+
         _price = window.web3.utils.toWei(_price.toString(), 'Ether')
+
+        const res = (_price < this.state.gameTokenBalance)
+        console.log(_price);
+        console.log(_price < this.state.gameTokenBalance);
         if(_price < this.state.gameTokenBalance)
         {
             this.state.gameToken.methods.transfer(_producerAddress,_price).send({from: this.state.account}).on('transactionHash', (hash) => {
             })
-            const game_code = await axios.get(`localhost:500/${_name.replace(/\s/g, '')}`)
-            return game_code;
+            return true;
         }
         else
         {
@@ -116,7 +122,7 @@ export default class App extends Component {
 
     DeleteGame = (_name) => {
         this.setState({loading: true })
-        
+
         var promise = new Promise( (resolve, reject) => {
 
             let value = this.state.videoGames.methods.getGamesInfoBasedProducer(_name).call()

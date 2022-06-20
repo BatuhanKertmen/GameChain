@@ -9,8 +9,9 @@ const Game = (props) => {
     const [deleteFail, setDeleteFail] = useState(false)
     const [deleteSuccess, setDeleteSuccess] = useState(false)
 
-    const buyGame = () => {
-        const res = props.buy(props.title, companyAddress, props.price)
+    const buyGame = async () => {
+        const res = await props.buy(props.title, companyAddress, props.price)
+        console.log(res);
         if(res){
             setBuySuccess(true)
         } else {
