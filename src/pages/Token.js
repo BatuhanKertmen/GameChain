@@ -98,7 +98,7 @@ const Token = (props) => {
             </div>
             <div className='sell_token med_container'>
                 {sell}
-                <h2 className='token_header'> Buy Tokens</h2>
+                <h2 className='token_header'> Sell Tokens</h2>
                <form onSubmit={handleSell}>
                 <br/>
                     <div className='add_game_row'>
