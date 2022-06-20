@@ -79,7 +79,7 @@ const GameBlock = ({children, img, desc, title, price, producer}) => {
             <h1 style={style_game_title}>{title}</h1>
             <p style={style_game_desc} >{desc} <strong style={{color:"darkblue", fontWeight:"600"}}> &nbsp;&nbsp; More...</strong></p>
             <h3 style={style_game_producer}> {producer} </h3>
-            <h3 className='btn' style={style_game_price} >{price}$</h3>
+            <h3 className='btn' style={style_game_price} >{price}🟡</h3>
         </div>
     )
 }

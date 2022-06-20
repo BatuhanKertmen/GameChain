@@ -4,6 +4,7 @@ import "../Style/Navbar.css"
 import gt from '../truffle_abis/GameToken.json'
 import vg from '../truffle_abis/VideoGames.json'
 import Navbar from './Navbar'
+import axios from 'axios'
 
 import { Route, Routes } from "react-router-dom";
 import Home from '../pages/Home'
@@ -11,6 +12,7 @@ import Account from '../pages/Account'
 import Game from '../pages/Game'
 import { isVariableDeclarationList } from 'typescript'
 import Token from '../pages/Token'
+
 
 export default class App extends Component {
 
@@ -98,17 +100,19 @@ export default class App extends Component {
         })            
     }
 
-    BuyGame = (_name,_producerAddress, _price) => {
+    BuyGame = async (_name,_producerAddress, _price) => {
         this.setState({loading: true })
         _price = window.web3.utils.toWei(_price.toString(), 'Ether')
         if(_price < this.state.gameTokenBalance)
         {
             this.state.gameToken.methods.transfer(_producerAddress,_price).send({from: this.state.account}).on('transactionHash', (hash) => {
             })
-            return true;
+            const game_code = await axios.get(`localhost:500/${_name.replace(/\s/g, '')}`)
+            return game_code;
         }
         else
         {
+
             this.setState({loading:false})
             return false;
         }      

@@ -113,36 +113,6 @@ const Home = (props) => {
       </div>
       }
      
-    <form 
-        onSubmit={(event) => {
-        event.preventDefault()
-        let _producerAddress = props.tokenowner
-        let _price = 300
-        let _name = "GTA5"
-        props.BuyGame(_name,_producerAddress,_price)
-        }}
-        className='mb-3'>
-        <div style={{borderSpacing:'0 1em'}}>
-          <label className='float-left' style={{marginLeft:'15px'}}><b>Stake Tokens</b></label>
-          <button type='submit' className='btn btn-primary btn-lg btn-block'>buyGames</button>
-        </div>
-        </form>
-
-        <form 
-        onSubmit={(event) => {
-        event.preventDefault()
-        //let _producerAddress = props.tokenowner
-        let _name = "GTA6"
-        props.DeleteGame(_name)
-        }}
-        className='mb-3'>
-        <div style={{borderSpacing:'0 1em'}}>
-          <label className='float-left' style={{marginLeft:'15px'}}><b>Stake Tokens</b></label>
-          <button type='submit' className='btn btn-primary btn-lg btn-block'>DeleteGame</button>
-        </div>
-        </form>
-   
-
       <div className='add_game_btn' style={add_game_btn_style} onClick={() => setAddGmae(!addGame)}>
         <div className='plus_sign_left' />
         <div className='plus_sign_right'/>
@@ -169,7 +139,6 @@ const Home = (props) => {
           return <Link key={idx} to={`games/${name.replace(/\s/g, '')}`} ><GameBlock img={img} title={name} desc={description} price={price} producer={producer} /></Link>
         }) }
         
-        <Link to={`games/"GrandTheftAuto3"`} ><GameBlock img="https://cdn.wallpapersafari.com/73/50/JbtAa5.jpg" title="Grand Theft Auto 3" desc={lorem} price={99.99} producer="Rockstar"/></Link>
       </BigContainer>
     </>
   )
